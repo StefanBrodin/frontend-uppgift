@@ -2,10 +2,20 @@
 
 /* Fonts are variable, allowing for a wide range of weights without needing multiple font files. This can help with performance and flexibility in design. */
 /* Article about it here: https://web.dev/articles/variable-fonts */
+
+/* Lora - For Brand/Logo and Headings */
 @font-face {
   font-family: 'Lora';
   src: url('../fonts/Lora-VariableFont_wght.ttf') format('truetype-variations');
   font-weight: 100 900; /* Allows any weight between 100 and 900. Not locked to the standard 400 (normal) or 700 (bold) */
+  font-style: normal;
+}
+
+/* Inter - For Body text and Interface */
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype-variations');
+  font-weight: 100 900;
   font-style: normal;
 }
 
@@ -17,7 +27,7 @@
   /* These variables can be easily updated to change the look and feel of the site without needing to modify individual styles. */
   /* Will also make it possible to implement a dark mode in the future by simply overriding these variables with darker values */
   --bg-main: #fcfdfa;
-  --bg-alt: #f0f2eb; /* Consistent secondary background */
+  --bg-alt: #f0f2eb; /* Consistent secondary background color, for use in boxes and cards, zebra stripes, etc. */
   --text-main: #0a1a0a;
   --text-muted: #4a5a4a;
   --brand-primary: #003800;
@@ -28,7 +38,8 @@
 
   --radius: 0.8rem; /* Sets a consistent corner radius for the whole site */
 
-  --font-brand: 'Lora', serif; /* A variable for the brand font, making it easy to change the logo font across the entire site by just updating this variable */
+  --font-brand: 'Lora', serif; /* A variable for the brand/logo font, and headings, making it easy to change the logo font across the entire site by just updating this variable */
+  --font-main: 'Inter', system-ui, sans-serif; /* Added Inter as the main font variable. Use for body text and interface elements. If not available, fallback to system UI fonts */
 }
 
 /* Basic Reset of * (ALL elements) to ensure consistent styling across browsers by overwriting their respective original standard behaviour */

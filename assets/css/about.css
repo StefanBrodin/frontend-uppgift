@@ -1,0 +1,99 @@
+/* Container for the about content, matching the 90.0rem width */
+.about-container {
+    max-width: 90.0rem;
+    margin: 0 auto;
+    padding: 0 2.0rem;
+}
+
+.page-title {
+    margin-bottom: 4.0rem;
+    color: var(--brand-primary);
+    font-family: var(--font-brand);
+}
+
+.lead-text {
+    font-size: 2.2rem;
+    line-height: 1.6;
+    color: var(--text-main);
+    margin-bottom: 4.0rem;
+    max-width: 70.0rem;
+}
+
+.body-text {
+    font-size: 1.6rem;
+    line-height: 1.5;
+    color: var(--text-main);
+    margin-bottom: 2.0rem;
+}
+
+/* A 3-column grid for highlighting features */
+.highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3.0rem;
+    margin-top: 4.0rem;
+    margin-bottom: 4.0rem;
+}
+
+.highlight-card {
+    background-color: var(--bg-alt);
+    padding: 3.0rem;
+    border-radius: var(--radius);
+    border: 0.1rem solid var(--border-color);
+}
+
+.highlight-card h3 {
+    color: var(--brand-primary);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+.highlight-card p {
+    font-size: 1.5rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+}
+
+/* Tech specs section */
+.tech-section {
+    /* border-top: 0.1rem solid var(--border-color);*/
+    /*padding-top: 2.0rem;*/
+    margin-bottom: 6.0rem;
+}
+
+.tech-section h2 {
+    font-family: var(--font-brand);
+    margin-bottom: 2.0rem;
+}
+
+.tech-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.tech-list li {
+    font-size: 1.6rem;
+}
+
+.tech-list strong {
+    color: var(--brand-primary);
+    font-weight: 600;
+}
+
+/* Mobile adjustments */
+@media (max-width: 48.0rem) {
+    .page-title, .lead-text {
+        text-align: center;
+    }
+
+    .highlights-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tech-list {
+        grid-template-columns: 1fr;
+    }
+}

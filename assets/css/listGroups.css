@@ -33,6 +33,7 @@
     gap: 1.0rem;
     width: 100%;
     max-width: 60.0rem; /* Keeps the search form from becoming too wide on desktops */
+    margin: 0 auto; /* Centers the search form within the search area */
 }
 
 .search-input {
