@@ -54,7 +54,7 @@ body {
   color: var(--text-main);
   /* Setting default body text to 1.6rem (16px) */
   font-size: 1.6rem;
-  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-family: var(--font-main);
   
   /* Sticky footer layout using CSS Grid. The footer will stick to the bottom of the viewport 
       even if there isn't enough content in the main content area */
