@@ -20,7 +20,7 @@ export function MusicGroupService() {
             genre: _sgen.fromString("Rock, Pop, Jazz, Metal, Synth, Blues"),
 
             // For this early mockup, the same static image URL for all groups is used. In the real application this will be stored in the backend.
-            imageUrl: 'assets/images/group_images/Depeche_Mode_1985.jpg',
+            imageUrl: 'assets/images/group-images/depeche-mode.jpg',
             
             // Creating 3-6 members per group using the seeder's toArray method
             members: _sgen.toArray(Math.floor(Math.random() * 4 + 3), (s) => ({
