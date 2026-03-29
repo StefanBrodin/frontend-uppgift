@@ -11,7 +11,7 @@ function renderList(pageNr) {
     const listContainer = document.getElementById('group-list-container');
     if (!listContainer) return;
 
-    // --- FIX PROBLEM 1: Behåll headern ---
+    // Keep the header but clear the rest of the list container
     const header = listContainer.querySelector('.list-header');
     listContainer.innerHTML = ''; 
     listContainer.appendChild(header);
@@ -40,15 +40,15 @@ function renderPagination(pageData) {
     const nav = document.querySelector('.pagination');
     if (!nav) return;
 
-    nav.innerHTML = ''; // Remove old HTML pagination buttons
+    // Remove old HTML pagination buttons
+    nav.innerHTML = ''; 
 
-    // --- FIX: Use <button> elements instead of <a> tags ---
-
-    // Previous
-    const prev = document.createElement('button');
+    // *** Previous button ***
     // Keep the class names for the existing CSS but add "disabled" class (also in CSS) if it's the first page
+    const prev = document.createElement('button');
     prev.className = `pag-nav ${pageData.pageNr === 0 ? 'disabled' : ''}`;
     prev.innerText = 'Föregående';
+
     // Buttons have a "disabled" property that can be set to true to disable them, which is more semantically correct than 
     // just adding a visual "disabled" class. This also prevents the button from being clickable when disabled.
     prev.disabled = pageData.pageNr === 0; 
@@ -57,9 +57,27 @@ function renderPagination(pageData) {
     };
     nav.appendChild(prev);
 
-    // Pagenumbers
-    let start = Math.max(0, pageData.pageNr - 4);
-    let end = Math.min(pageData.totalPages - 1, start + 9); // Visar upp till 10 nummer
+    // *** Pagination Logic for Constant Button Count (current/active button in the middle) ***
+
+    // Define the maximum number of page buttons to show
+    const maxButtons = Math.min(11, pageData.totalPages);
+    
+    // Calculate start index to keep "current" (active) page centered if possible
+    let start = pageData.pageNr - Math.floor(maxButtons / 2);
+    
+    // Ensure start doesn't go below 0 (beginning of the list)
+    if (start < 0) {
+        start = 0;
+    }
+    
+    // Ensure the window doesn't shift past the last page
+    // This keeps the count of buttons constant at the end of the list
+    if (start + maxButtons > pageData.totalPages) {
+        start = Math.max(0, pageData.totalPages - maxButtons);
+    }
+
+    // Calculate end index based on the fixed start and maxButtons
+    let end = start + maxButtons - 1;
 
     for (let i = start; i <= end; i++) {
         const btn = document.createElement('button');
@@ -72,7 +90,7 @@ function renderPagination(pageData) {
         nav.appendChild(btn);
     }
 
-    // Next
+    // *** Next button ***
     const next = document.createElement('button');
     next.className = `pag-nav ${pageData.pageNr === pageData.totalPages - 1 ? 'disabled' : ''}`;
     next.innerText = 'Nästa';
