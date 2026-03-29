@@ -7,14 +7,14 @@ export class MusicGroupService {
     // The baseUrl is the common denominator for all API calls, so we set it in the constructor. 
     // This way, if the API endpoint changes, we only need to update it in one place.
     constructor() {
-        this.baseUrl = 'https://music.api.public.seido.se/api';
+        this.baseUrl = 'https://music.api.public.seido.se';
     }
 
     // Retrieves a paginated list of music groups from the API. It takes pageNr, pageSize, and an optional filter string as parameters.
     async readGroups(pageNr, pageSize, filter = '') {
 
         // Using the parameters from the Swagger documentation to construct the API URL. 
-        const url = `${this.baseUrl}/MusicGroups/Read?seeded=true&flat=true&pageNr=${pageNr}&pageSize=${pageSize}&filter=${filter}`;
+        const url = `${this.baseUrl}/api/MusicGroups/Read?seeded=true&flat=true&pageNr=${pageNr}&pageSize=${pageSize}&filter=${filter}`;
         
         try {
             const response = await fetch(url);
@@ -38,6 +38,23 @@ export class MusicGroupService {
             console.error('Service Error (readGroups):', error);
             // Returning an empty page structure in case of error to give the frontend a chance to handle it gracefully instead of crashing. 
             return { pageNr, pageSize, totalCount: 0, totalPages: 0, pageItems: [] };
+        }
+    }
+
+    // Retrieves a single music group by its ID. Uses the 'flat=false' parameter to get the full details of the group, including its members and albums.
+    async readGroup(id) {
+    
+        const url = `${this.baseUrl}/api/MusicGroups/ReadItem?id=${id}&flat=false`;
+        
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Kunde inte hitta gruppen');
+            
+            const data = await response.json();
+            return data.item; // Return the inner "item" which contains the actual group details, since the API wraps it in an outer object.   
+        } catch (error) {
+            console.error('Service Error (readGroup):', error);
+            return null;
         }
     }
 }
