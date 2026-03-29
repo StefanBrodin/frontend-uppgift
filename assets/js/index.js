@@ -33,6 +33,21 @@ function renderList(pageNr) {
         listContainer.appendChild(row);
     });
 
+    // Fill up with empty rows if less than 10 items in the list to maintain consistent height and 
+    // pagination button position to avoid layout shifts. 
+const rowsToFill = 10 - pageData.pageItems.length;
+    for (let i = 0; i < rowsToFill; i++) {
+        const emptyRow = document.createElement('div');
+        emptyRow.className = 'list-row empty-row';
+        emptyRow.innerHTML = `
+            <div class="col-name">&nbsp;</div>
+            <div class="col-actions">
+                <div class="btn-spacer">&nbsp;</div> 
+            </div>
+        `;
+        listContainer.appendChild(emptyRow);
+    }
+
     renderPagination(pageData);
 }
 
