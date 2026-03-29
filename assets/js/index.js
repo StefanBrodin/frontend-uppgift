@@ -26,7 +26,7 @@ function renderList(pageNr) {
                 <a href="view-group.html?id=${group.id}">${group.name}</a>
             </div>
             <div class="col-actions">
-                <button class="btn btn-edit">Ändra</button>
+                <button class="btn btn-edit">Ändra</button  >
                 <button class="btn btn-delete">Radera</button>
             </div>
         `;
@@ -38,11 +38,15 @@ function renderList(pageNr) {
 const rowsToFill = 10 - pageData.pageItems.length;
     for (let i = 0; i < rowsToFill; i++) {
         const emptyRow = document.createElement('div');
-        emptyRow.className = 'list-row empty-row';
+        // Keep 'list-row' so it gets the same grid/padding
+        emptyRow.className = 'list-row empty-row'; 
         emptyRow.innerHTML = `
-            <div class="col-name">&nbsp;</div>
+            <div class="col-name">
+                <a class="invisible-content" tabIndex="-1">Tom rad</a>
+            </div>
             <div class="col-actions">
-                <div class="btn-spacer">&nbsp;</div> 
+                <button class="btn invisible-content" tabIndex="-1">Dummy</button>
+                <button class="btn invisible-content" tabIndex="-1">Dummy</button>
             </div>
         `;
         listContainer.appendChild(emptyRow);

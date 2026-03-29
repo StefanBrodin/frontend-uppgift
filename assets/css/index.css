@@ -118,16 +118,6 @@
     font-size: 1.8rem;
 }
 
-/* Hover Effect on rows - strictly visual to guide the eye  
-.list-row:not(.list-header):hover {
-    background-color: #ffffff;
-    /* A darker border on hover to "pop" the row  
-    outline: 0.1rem solid var(--brand-primary);
-    outline-offset: -0.1rem;
-    z-index: 2;
-    cursor: default;
-}*/
-
 /* Improved hover effect for rows with content */
 .list-row:not(.list-header):not(.empty-row):hover {
     background-color: #ffffff;
@@ -137,13 +127,6 @@
     z-index: 2;
     cursor: pointer; /* Change to pointer to show it's clickable */
 }
-
-/* Ensure empty rows don't show a hand-pointer on hover 
-.list-row.empty-row:hover {
-    outline: none;
-    background-color: transparent; 
-    cursor: default;
-}*/
 
 /* Reset for empty rows to keep them static */
 .list-row.empty-row:hover {
@@ -156,26 +139,11 @@
     border-bottom: 0.1rem solid var(--border-color);
 }
 
-/* This spacer mimics the height of the .btn classes. It ensures that even if
-   there are no buttons in the list, the row still takes up the same vertical space,
-   preventing layout shifts in empty rows. */
-.btn-spacer {
-    /* padding: 0.6rem 0; /* Same vertical padding as your .btn (0.6rem) */
-    /* font-size: 1.3rem;  /* Same font-size as your .btn */
-    /* line-height: normal; */
-    visibility: hidden; /* Makes it invisible but it still takes up space */
-    width: 100%; /* Take up full width on mobile phone to trigger the grid gap */
-
-    /* Adding a height equivalent to a button to be 100% sure */
-    /* height: 1.9rem;  */
-    height: 3.1rem; /* This is the total height of a button including padding (0.6rem top + 1.3rem font-size + 0.6rem bottom) */
-    /* display: inline-block; */
-    display: block; /* Block-level to ensure it takes up the full width and triggers the grid gap on mobile */
-}
-
-/* Ensure the empty row itself doesn't shrink or change behavior */
-.list-row.empty-row {
-    min-height: 5.3rem; /* Optional: A "safety" height if you want to be extra sure */
+/* Magic class to hide content while preserving layout and spacing */
+.invisible-content {
+    visibility: hidden !important;
+    pointer-events: none !important;
+    user-select: none;
 }
 
 /* Column logic and Link styling */
@@ -278,23 +246,6 @@
 @media (max-width: 48.0rem) {
     .list-layout-wrapper {
         padding: 0 1.0rem;
-    }
-
-    .list-row.empty-row {
-        /* We force the grid to treat the empty col-actions as a second row */
-        display: grid; 
-        /* grid-template-rows: auto auto;  */
-        grid-template-columns: 1fr;
-
-        /* Make sure the gap is visible even when the content is hidden */
-        grid-template-rows: min-content min-content; 
-        gap: 1.5rem;
-    }
-
-    /* Force height for name column in empty rows */
-    .empty-row .col-name {
-        line-height: 1.5; /* Matches the height of a link */
-        min-height: 2.4rem; /* Matches the height of the text row */
     }
 
     .page-title {
