@@ -1,0 +1,149 @@
+<!DOCTYPE html> 
+<html lang="sv-SE">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redigera grupp - Evergreen Music</title>
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/index.css">
+    <link rel="stylesheet" href="assets/css/edit-group.css">
+    <script type="module" src="assets/js/edit-group.js"></script>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="header-container">
+            <a href="index.html" class="logo">Evergreen Music</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Musikgrupper</a></li>
+                    <li><a href="add-group.html">Lägg till grupp</a></li>
+                    <li><a href="about.html">Om sidan</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+<main class="main-content">
+    <div class="content-wrapper">
+        <h1 id="edit-title">Redigera musikgrupp</h1>
+        
+        <section class="form-container">
+            <form id="edit-group-form">
+                <div class="form-group">
+                    <label for="group-name">Gruppnamn</label>
+                    <input type="text" id="group-name" placeholder="Skriv namnet på gruppen" class="form-input" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="genre">Genre</label>
+                        <select id="genre" class="form-input" required>
+                            <option value="" disabled selected>Välj en genre</option>
+                            <option value="0">Rock</option>
+                            <option value="1">Blues</option>
+                            <option value="2">Jazz</option>
+                            <option value="3">Metal</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="formed-year">Året då gruppen bildades</label>
+                        <input type="number" id="formed-year" placeholder="ÅÅÅÅ" class="form-input" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="group-image">Bild på gruppen</label>
+                    <div class="file-input-wrapper">
+                        <input type="text" id="group-image" placeholder="Ingen bild vald" class="form-input" readonly>
+                        <button type="button" class="btn btn-edit">Välj bild</button>
+                    </div>
+                </div>
+                <div class="form-footer-right">
+                    <button type="submit" class="btn-save">Uppdatera grunddata</button>
+                </div>
+            </form>
+        </section>
+
+        <h2 class="section-title">Gruppmedlemmar</h2>
+        <section class="admin-add-box">
+            <form id="add-member-form" class="inline-form">
+                <div class="form-group">
+                    <label for="member-firstname">Förnamn</label>
+                    <input type="text" id="member-firstname" placeholder="Förnamn" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="member-lastname">Efternamn</label>
+                    <input type="text" id="member-lastname" placeholder="Efternamn" class="form-input" required>
+                </div>
+                <button type="submit" class="btn btn-add">Lägg till</button>
+            </form>
+        </section>
+
+        <section class="list-container">
+            <div class="list-row list-header member-grid">
+                <div class="col-name">Namn</div>
+                <div class="col-actions">Åtgärder</div>
+            </div>
+            <div id="member-list-target">
+                </div>
+        </section>
+
+        <h2 class="section-title">Album</h2>
+        <section class="admin-add-box">
+            <form id="add-album-form" class="inline-form">
+                <div class="form-group album-name-input">
+                    <label for="album-name">Namn på album</label>
+                    <input type="text" id="album-name" placeholder="Albumtitel" class="form-input" required>
+                </div>
+                <div class="form-group album-year-input">
+                    <label for="album-year">Släpptes år</label>
+                    <input type="number" id="album-year" placeholder="ÅÅÅÅ" class="form-input" required>
+                </div>
+                <button type="submit" class="btn btn-add">Lägg till</button>
+            </form>
+        </section>
+
+        <section class="list-container">
+            <div class="list-row list-header album-grid">
+                <div class="col-name">Namn på album</div>
+                <div class="col-year">Släpptes år</div>
+                <div class="col-actions">Åtgärder</div>
+            </div>
+            <div id="album-list-target">
+                </div>
+        </section>
+
+        <div class="form-actions">
+            <a href="index.html" class="btn-cancel">Avbryt</a>
+            <button id="btn-finish" class="btn-save">Klar - Visa Grupp</button>
+        </div>
+    </div>
+</main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="copyright">
+                &copy; 2026 Evergreen Music. All rights reserved.
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>My Education</h4>
+                    <ul>
+                        <li><a href="https://teknikhogskolan.se/studieorter/gavle/">Teknikhögskolan Gävle</a></li>
+                        <li><a href="https://teknikhogskolan.omniway.se/">Omniway</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Guidelines</h4>
+                    <ul>
+                        <li><a href="https://music.razor.public.seido.se/ListOfGroups">Teacher's Inspiration</a></li>
+                        <li><a href="https://music-api-public-80030692.azurewebsites.net/swagger/index.html">Web API</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

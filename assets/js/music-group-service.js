@@ -10,11 +10,12 @@ export class MusicGroupService {
         this.baseUrl = 'https://music.api.public.seido.se';
     }
 
+
     // Retrieves a paginated list of music groups from the service. It takes pageNr, pageSize, and an optional filter string as parameters.
     async readGroups(pageNr, pageSize, filter = '') {
 
         // Using the parameters from the API-documentation by Swagger to construct the API URL. 
-        const url = `${this.baseUrl}/api/MusicGroups/Read?seeded=true&flat=true&pageNr=${pageNr}&pageSize=${pageSize}&filter=${filter}`;
+        const url = `${this.baseUrl}/api/MusicGroups/Read?seeded=false&flat=true&pageNr=${pageNr}&pageSize=${pageSize}&filter=${filter}`;
         
         try {
             const response = await fetch(url);
@@ -41,6 +42,7 @@ export class MusicGroupService {
         }
     }
 
+
     // Retrieves a single music group by its ID. Uses the 'flat=false' parameter to get the full details of the group, including its members and albums.
     async readGroup(id) {
     
@@ -58,24 +60,127 @@ export class MusicGroupService {
         }
     }
 
-    // Deletes a music group by its ID. This method sends a DELETE request to the API and returns true if the deletion was successful, or false if it failed.
+
+    // Deletes a music group by its ID. Sends a DELETE request to the API and returns true if the deletion was successful, or false if it failed.
     async deleteGroup(id) {
 
-    const url = `${this.baseUrl}/api/MusicGroups/DeleteItem/${id}`;
-    
-    try {
-        const response = await fetch(url, {
-            method: 'DELETE'
-        });
+        const url = `${this.baseUrl}/api/MusicGroups/DeleteItem/${id}`;
+        
+        try {
+            const response = await fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'accept': 'text/plain' // Tells the API that we expect a plain text response
+                }
+            });
 
-        if (!response.ok) {
-            throw new Error(`Kunde inte radera gruppen: ${response.statusText}`);
+            if (!response.ok) {
+                const errorText = await response.text(); 
+                throw new Error(`Fel ${response.status}: ${errorText}`);
+            }
+
+            return true; // Return true to indicate successful deletion
+
+        } catch (error) {
+            console.error('Service Error (deleteGroup):', error);
+            return false; // Return false to indicate failed deletion
         }
-
-        return true; // Return true to indicate successful deletion
-    } catch (error) {
-        console.error('Service Error (deleteGroup):', error);
-        return false;
     }
-}
+
+
+    // Creates a new music group using the provided groupDto object by sending a POST request to the API with the group data in JSON format.
+    // Returns the created group object if successful, returns null if it fails.
+    async createGroup(groupDto) {
+        const url = `${this.baseUrl}/api/MusicGroups/CreateItem`;
+        
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', // Tells the API that the data sent in the body is JSON data.
+                    'accept': 'application/json'        // Tells the API that we expect JSON data in response. 
+                },
+                // JSON.stringify transforms the JavaScript object (groupDto) into a JSON string, which is the format expected by the API for the request body.
+                body: JSON.stringify(groupDto)
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`API Error: ${response.status} - ${errorText}`);
+            }
+
+            // The API returns the created group object in the response body, so we parse it as JSON and return it. 
+            const data = await response.json();
+
+            // The API wraps the actual group object in an outer "item" property, so we return data.item to return the unwrapped group details.
+            return data.item; 
+        } catch (error) {
+            console.error('Service Error (createGroup):', error);
+            return null;
+        }
+    }
+
+
+    // Creates a new artist using the provided artistDto object by sending a POST request to the API with the artist data in JSON format.
+    // Returns the created artist object if successful, returns null if it fails.
+    async createArtist(artistDto) {
+        const url = `${this.baseUrl}/api/Artists/CreateItem`;
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json', // Tells the API that the data sent in the body is JSON data.
+                    'accept': 'application/json'        // Tells the API that we expect JSON data in response. 
+                }, 
+                body: JSON.stringify(artistDto)
+            });
+            
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`API Error: ${response.status} - ${errorText}`);
+            }
+
+            // The API returns the created group object in the response body, so we parse it as JSON and return it. 
+            const data = await response.json();
+
+            // The API wraps the actual group object in an outer "item" property, so we return data.item to return the unwrapped group details.
+            return data.item; 
+        } catch (error) {
+            console.error('Service Error (createArtist):', error);
+            return null; 
+        }
+    }
+
+
+    // Creates a new album using the provided albumDto object by sending a POST request to the API with the album data in JSON format.
+    // Returns the created album object if successful, returns null if it fails.
+    async createAlbum(albumDto) {
+        const url = `${this.baseUrl}/api/Albums/CreateItem`;
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json', // Tells the API that the data sent in the body is JSON data.
+                    'accept': 'application/json'        // Tells the API that we expect JSON data in response. 
+                }, 
+                body: JSON.stringify(albumDto)
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`API Error: ${response.status} - ${errorText}`);
+            }
+
+            // The API returns the created group object in the response body, so we parse it as JSON and return it. 
+            const data = await response.json();
+
+            // The API wraps the actual group object in an outer "item" property, so we return data.item to return the unwrapped group details.
+            return data.item; 
+        } catch (error) {
+            console.error('Service Error (createAlbum):', error);
+            return null; 
+        }
+    }
 }

@@ -9,7 +9,8 @@ const groupId = urlParams.get('id');
 
 async function init() {
     if (!groupId) {
-        document.getElementById('group-name').innerText = "Gruppen hittades inte (ingen ID angivet)";
+        const titleElement = document.getElementById('group-name');
+        if (titleElement) titleElement.innerText = "Gruppen hittades inte (ingen ID angivet)";
         return;
     }
 
@@ -22,26 +23,41 @@ async function init() {
         // stripped away the outer "item" layer.
         renderGroupDetails(group); 
     } else {
-        document.getElementById('group-name').innerText = "Gruppen hittades inte (felaktigt ID)";
+        const titleElement = document.getElementById('group-name');
+        if (titleElement) titleElement.innerText = "Gruppen hittades inte (felaktigt ID)";
     }
 }
 
 // 3. Render the page using the retrieved data
 function renderGroupDetails(group) {
-    document.title = `${group.name} - Evergreen Music`;
+    document.title = `${group.name || 'Grupp'} - Evergreen Music`;
 
     // Group details
-    document.getElementById('group-name').innerText = group.name || 'Ingen grupp har detta ID';
+    const nameElem = document.getElementById('group-name');
+    if (nameElem) nameElem.innerText = group.name || 'Okänd grupp';
     
     // API uses 'strGenre' for the text representation of the genre
-    document.getElementById('group-genre').innerText = group.strGenre || 'N/A';
-    document.getElementById('group-established').innerText = group.establishedYear || 'N/A';
+    const genreElem = document.getElementById('group-genre');
+    if (genreElem) genreElem.innerText = group.strGenre || 'N/A';
+
+    const establishedElem = document.getElementById('group-established');
+    if (establishedElem) establishedElem.innerText = group.establishedYear || 'N/A';
     
     // Group image - keeping the existing logic but providing a fallback
     const imgElement = document.getElementById('group-image');
-    // Default image for all groups for now, since the API doesn't provide individual images. This can be updated later when the backend supports it.
-    imgElement.src = 'assets/images/group-images/depeche-mode.jpg'; 
-    imgElement.alt = group.name;
+    if (imgElement) {
+        // Default image for all groups for now, since the API doesn't provide individual images. 
+        // This can be updated later when the backend supports it.
+        imgElement.src = 'assets/images/group-images/depeche-mode.jpg'; 
+        imgElement.alt = `Bild på ${group.name || 'grupp saknas'}`;
+    }
+
+    // Setup Edit Button link if it exists on the page
+    // This connects the presentation view to the editing flow
+    const editBtn = document.getElementById('edit-group-btn');
+    if (editBtn) {
+        editBtn.href = `edit-group.html?id=${group.musicGroupId}`;
+    }
 
     // Render the members (artists) list
     // In the API response, group members are found in the 'artists' array
@@ -52,7 +68,7 @@ function renderGroupDetails(group) {
             group.artists.forEach(artist => {
                 const li = document.createElement('li');
                 // API uses firstName and lastName for artists
-                li.innerText = `${artist.firstName} ${artist.lastName}`;
+                li.innerText = `${artist.firstName || ''} ${artist.lastName || ''}`.trim();
                 memberList.appendChild(li);
             });
         } else {
@@ -73,8 +89,8 @@ function renderGroupDetails(group) {
                 const row = document.createElement('div');
                 row.className = 'list-row album-view-grid';
                 row.innerHTML = `
-                    <div class="col-name">${album.name}</div>  
-                    <div class="col-year">${album.releaseYear}</div>
+                    <div class="col-name">${album.name || 'Okänt album'}</div>  
+                    <div class="col-year">${album.releaseYear || 'N/A'}</div>
                 `;
                 albumContainer.appendChild(row);
             });
