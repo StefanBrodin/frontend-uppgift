@@ -158,6 +158,33 @@
     opacity: 0.9;
 }
 
+/* Nya stilar för Redigera-knappen i sidhuvudet */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 2.0rem;
+}
+
+.btn-edit-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background-color: var(--brand-primary);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.6rem;
+    border-radius: var(--radius);
+    font-size: 1.4rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-edit-header:hover {
+    opacity: 0.9;
+}
+
+
 /* Responsive adjustments for mobile devices */
 @media (max-width: 48.0rem) {
     .group-header {
@@ -185,5 +212,10 @@
         grid-template-columns: 1fr;
         text-align: center;
         padding: 2.0rem;
+    }
+
+    .header-actions {
+        flex-direction: column;
+        gap: 1.5rem;
     }
 }

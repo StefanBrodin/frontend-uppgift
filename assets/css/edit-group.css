@@ -177,6 +177,40 @@ label {
     gap: 3.0rem;
 }
 
+/* Make input fields a bit smaller when displayed inline in the list */
+.list-row .form-input {
+    padding: 0.6rem;
+    font-size: 1.4rem;
+}
+
+/* Container for first name/last name inline */
+.inline-edit-group {
+    display: flex;
+    gap: 0.8rem;
+    width: 100%;
+}
+
+/* Smaller buttons for inline edit */
+.btn-save-small {
+    background-color: var(--brand-primary);
+    color: white;
+    padding: 0.5rem 1.2rem;
+    border-radius: var(--radius);
+    border: none;
+    cursor: pointer;
+    font-size: 1.3rem;
+}
+
+.btn-cancel-small {
+    background-color: transparent;
+    color: var(--text-muted);
+    padding: 0.5rem 1.2rem;
+    border: 0.1rem solid var(--border-color);
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 1.3rem;
+}
+
 /* Responsive adjustments */
 
 @media (max-width: 48.0rem) {
@@ -233,7 +267,7 @@ label {
 
     .col-year {
         text-align: center;
-        padding: 0 1.5rem 0 0.5rem; /* Padding to give some space from CUDA buttons */
+        padding: 0 1.5rem 0 0.5rem; /* Padding to give some space from CRUD buttons */
         margin: 0;
         font-weight: 400;
         min-width: 5.5rem;

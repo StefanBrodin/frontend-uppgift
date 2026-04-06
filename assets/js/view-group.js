@@ -52,11 +52,15 @@ function renderGroupDetails(group) {
         imgElement.alt = `Bild på ${group.name || 'grupp saknas'}`;
     }
 
-    // Setup Edit Button link if it exists on the page
+    // Setup Edit Button logic
     // This connects the presentation view to the editing flow
     const editBtn = document.getElementById('edit-group-btn');
     if (editBtn) {
-        editBtn.href = `edit-group.html?id=${group.musicGroupId}`;
+        // We use an event listener instead of .href since we are using a <button> 
+        // to better handle the navigation logic.
+        editBtn.addEventListener('click', () => {
+            window.location.href = `edit-group.html?id=${group.musicGroupId}`;
+        });
     }
 
     // Render the members (artists) list

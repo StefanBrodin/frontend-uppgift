@@ -144,7 +144,7 @@ export class MusicGroupService {
             // The API returns the created group object in the response body, so we parse it as JSON and return it. 
             const data = await response.json();
 
-            // The API wraps the actual group object in an outer "item" property, so we return data.item to return the unwrapped group details.
+            // The API wraps the actual artist object in an outer "item" property, so we return data.item to return the unwrapped group details.
             return data.item; 
         } catch (error) {
             console.error('Service Error (createArtist):', error);
@@ -176,11 +176,99 @@ export class MusicGroupService {
             // The API returns the created group object in the response body, so we parse it as JSON and return it. 
             const data = await response.json();
 
-            // The API wraps the actual group object in an outer "item" property, so we return data.item to return the unwrapped group details.
+            // The API wraps the actual album object in an outer "item" property, so we return data.item to return the unwrapped group details.
             return data.item; 
         } catch (error) {
             console.error('Service Error (createAlbum):', error);
             return null; 
         }
     }
+
+
+    // Updates an existing music group by its ID using a PUT request.
+    // Sends the updated groupDto object as JSON and returns the updated item.
+    async updateGroup(id, groupDto) {
+        const url = `${this.baseUrl}/api/MusicGroups/UpdateItem/${id}`;
+        
+        try {
+            const response = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'accept': 'application/json'
+                },
+                body: JSON.stringify(groupDto)
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`API Error: ${response.status} - ${errorText}`);
+            }
+
+            const data = await response.json();
+            return data.item; 
+        } catch (error) {
+            console.error('Service Error (updateGroup):', error);
+            return null;
+        }
+    }
+
+
+    // Updates an existing artist by its ID using a PUT request.
+    // Sends the updated artistDto object as JSON and returns the updated item.
+    async updateArtist(id, artistDto) {
+        const url = `${this.baseUrl}/api/Artists/UpdateItem/${id}`;
+        
+        try {
+            const response = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'accept': 'application/json'
+                },
+                body: JSON.stringify(artistDto)
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`API Error: ${response.status} - ${errorText}`);
+            }
+
+            const data = await response.json();
+            return data.item;
+        } catch (error) {
+            console.error('Service Error (updateArtist):', error);
+            return null;
+        }
+    }
+
+
+    // Updates an existing album by its ID using a PUT request.
+    // Sends the updated albumDto object as JSON and returns the updated item.
+    async updateAlbum(id, albumDto) {
+        const url = `${this.baseUrl}/api/Albums/UpdateItem/${id}`;
+        
+        try {
+            const response = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'accept': 'application/json'
+                },
+                body: JSON.stringify(albumDto)
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`API Error: ${response.status} - ${errorText}`);
+            }
+
+            const data = await response.json();
+            return data.item;
+        } catch (error) {
+            console.error('Service Error (updateAlbum):', error);
+            return null;
+        }
+    }
 }
+

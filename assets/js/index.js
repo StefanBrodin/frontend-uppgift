@@ -46,14 +46,27 @@ async function renderList(pageNr) {
             </div>
         `;
 
+        // *** Edit button logic ***
+        // Find the edit button within the row and attach a click event listener to handle navigation to the edit page for that specific group.
+        const editBtn = row.querySelector('.btn-edit');
+        editBtn.addEventListener('click', (e) => {
+            // Stop the click event from propagating its way back up through the DOM (to the row's click event which 
+            // could navigate to the group details (view-group.html) page). Not really needed right now since the 
+            // row <div> itself doesn't have a click event for detailed views, but this might be added that later on. 
+            e.stopPropagation();
+
+            // Using the group.musicGroupId to navigate to the edit page for that specific music group. 
+            window.location.href = `edit-group.html?id=${group.musicGroupId}`;
+        });
+
         // *** Delete button logic ***
         // Find the delete button within the row and attach a click event listener to handle deletion of the group.
         const deleteBtn = row.querySelector('.btn-delete');
         
         deleteBtn.addEventListener('click', async (e) => {
             // Stop the click event from propagating its way back up through the DOM (to the row's click event which 
-            // could navigate to the group details (view-group.html) page). At the moment the row <div> itself doesn't
-            // have a click event, but I might add that later on. 
+            // could navigate to the group details (view-group.html) page). Not really needed right now since the 
+            // row <div> itself doesn't have a click event for detailed views, but this might be added that later on. 
             e.stopPropagation();
 
             const confirmed = confirm(`Är du säker på att du vill radera "${group.name}"?`);
