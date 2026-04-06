@@ -22,14 +22,14 @@ async function loadGroupData() {
     const yearField = document.getElementById('formed-year'); 
     const titleElement = document.getElementById('edit-title');
 
-    if (nameField) nameField.value = group.name ?? '';
-    if (genreField) genreField.value = group.genre ?? '';
-    if (yearField) yearField.value = group.establishedYear || '';
-    if (titleElement) titleElement.innerText = `Redigera ${group.name}`;
+    if (nameField) nameField.value = group?.name ?? '';
+    if (genreField) genreField.value = group?.genre ?? '';
+    if (yearField) yearField.value = group?.establishedYear ?? '';
+    if (titleElement) titleElement.innerText = `Redigera ${group?.name ?? 'musikgrupp'}`;
 
     // Render the current "group member" and "album" lists
-    renderMembers(group.artists || []);
-    renderAlbums(group.albums || []);
+    renderMembers(group?.artists ?? []);
+    renderAlbums(group?.albums ?? []);
 }
 
 
@@ -83,8 +83,8 @@ function setupEventListeners() {
             // Important to include any existing albums and artists arrays from currentGroup when updating,
             // since the API expects the full object including related entities for updates. If not included,
             // any existing group members and albums from the group will be *removed* from DB when updating.
-            albumsId: currentGroup.albums ? currentGroup.albums.map(a => a.albumId) : [],
-            artistsId: currentGroup.artists ? currentGroup.artists.map(a => a.artistId) : []
+            albumsId: currentGroup?.albums?.map(a => a.albumId) ?? [],
+            artistsId: currentGroup?.artists?.map(a => a.artistId) ?? []
         };
 
         const result = await service.updateGroup(groupId, groupDto);
@@ -109,7 +109,7 @@ function setupEventListeners() {
         const firstName = document.getElementById('member-firstname').value.trim();
         const lastName = document.getElementById('member-lastname').value.trim();
 
-        // Validation: Ensure we have at least some name data
+        // Validate that at least one of the name fields is filled out before allowing the user to save changes to prevent creating members without any name data.
         if (!firstName && !lastName) {
             alert("Du måste ange minst ett namn (förnamn eller efternamn) för medlemmen.");
             return;
@@ -209,7 +209,7 @@ function renderMembers(artists) {
     container.querySelectorAll('.btn-delete').forEach(btn => {
         btn.addEventListener('click', async () => {
             const artistId = btn.dataset.id;
-            const artistName = btn.closest('.list-row').querySelector('.col-name').innerText;
+            const artistName = btn.closest('.list-row')?.querySelector('.col-name')?.innerText ?? "artisten";
             
             if (confirm(`Vill du verkligen radera ${artistName}?`)) {
                 const success = await service.deleteArtist(artistId);
@@ -227,8 +227,8 @@ function renderMembers(artists) {
 // Function to show inline edit form for a group member
 async function showEditMemberForm(artistId) {
     const row = document.getElementById(`member-row-${artistId}`);
-    const firstName = row.querySelector('.first-name').innerText;
-    const lastName = row.querySelector('.last-name').innerText;
+    const firstName = row.querySelector('.first-name')?.innerText ?? '';
+    const lastName = row.querySelector('.last-name')?.innerText ?? '';
 
     row.innerHTML = `
         <div class="col-name">
@@ -301,7 +301,7 @@ function renderAlbums(albums) {
     container.querySelectorAll('.btn-delete').forEach(btn => {
         btn.addEventListener('click', async () => {
             const albumId = btn.dataset.id;
-            const albumName = btn.closest('.list-row').querySelector('.col-name').innerText;
+            const albumName = btn.closest('.list-row')?.querySelector('.col-name')?.innerText ?? "albumet";
 
             if (confirm(`Vill du verkligen radera albumet "${albumName}"?`)) {
                 const success = await service.deleteAlbum(albumId);
@@ -318,8 +318,8 @@ function renderAlbums(albums) {
 // Function to show inline edit form for an album
 async function showEditAlbumForm(albumId) {
     const row = document.getElementById(`album-row-${albumId}`);
-    const currentName = row.querySelector('.col-name').innerText;
-    const currentYear = row.querySelector('.col-year').innerText;
+    const currentName = row.querySelector('.col-name')?.innerText ?? '';
+    const currentYear = row.querySelector('.col-year')?.innerText ?? '';
 
     row.innerHTML = `
         <div class="col-name">

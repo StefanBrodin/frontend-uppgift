@@ -10,7 +10,7 @@ const groupId = urlParams.get('id');
 async function init() {
     if (!groupId) {
         const titleElement = document.getElementById('group-name');
-        if (titleElement) titleElement.innerText = "Gruppen hittades inte (ingen ID angivet)";
+        if (titleElement) titleElement.innerText = "Gruppen hittades inte (inget ID angivet)";
         return;
     }
 
@@ -30,49 +30,47 @@ async function init() {
 
 // 3. Render the page using the retrieved data
 function renderGroupDetails(group) {
-    document.title = `${group.name || 'Grupp'} - Evergreen Music`;
+    document.title = `${group?.name ?? 'Musikgrupp'} - Evergreen Music`;
 
     // Group details
     const nameElem = document.getElementById('group-name');
-    if (nameElem) nameElem.innerText = group.name || 'Okänd grupp';
+    if (nameElem) nameElem.innerText = group?.name ?? 'Okänd grupp';
     
     // API uses 'strGenre' for the text representation of the genre
     const genreElem = document.getElementById('group-genre');
-    if (genreElem) genreElem.innerText = group.strGenre || 'N/A';
+    if (genreElem) genreElem.innerText = group?.strGenre ?? 'Ej angivet';
 
     const establishedElem = document.getElementById('group-established');
-    if (establishedElem) establishedElem.innerText = group.establishedYear || 'N/A';
+    if (establishedElem) establishedElem.innerText = group?.establishedYear ?? 'Ej angivet';
     
     // Group image - keeping the existing logic but providing a fallback
     const imgElement = document.getElementById('group-image');
     if (imgElement) {
         // Default image for all groups for now, since the API doesn't provide individual images. 
-        // This can be updated later when the backend supports it.
         imgElement.src = 'assets/images/group-images/depeche-mode.jpg'; 
-        imgElement.alt = `Bild på ${group.name || 'grupp saknas'}`;
+        imgElement.alt = `Bild på ${group?.name ?? 'musikgrupp'}`;
     }
 
     // Setup Edit Button logic
-    // This connects the presentation view to the editing flow
     const editBtn = document.getElementById('edit-group-btn');
     if (editBtn) {
-        // We use an event listener instead of .href since we are using a <button> 
-        // to better handle the navigation logic.
         editBtn.addEventListener('click', () => {
-            window.location.href = `edit-group.html?id=${group.musicGroupId}`;
+            window.location.href = `edit-group.html?id=${group?.musicGroupId ?? ''}`;
         });
     }
 
     // Render the members (artists) list
-    // In the API response, group members are found in the 'artists' array
     const memberList = document.getElementById('member-list');
     if (memberList) {
         memberList.innerHTML = ''; // Clear static/dummy data
-        if (group.artists && group.artists.length > 0) {
-            group.artists.forEach(artist => {
+        const artists = group?.artists ?? [];
+        
+        if (artists.length > 0) {
+            artists.forEach(artist => {
                 const li = document.createElement('li');
-                // API uses firstName and lastName for artists
-                li.innerText = `${artist.firstName || ''} ${artist.lastName || ''}`.trim();
+                // Optional chaining ensures we don't crash if firstName/lastName is missing
+                const fullName = `${artist?.firstName ?? ''} ${artist?.lastName ?? ''}`.trim();
+                li.innerText = fullName !== '' ? fullName : 'Namnlös artist';
                 memberList.appendChild(li);
             });
         } else {
@@ -88,13 +86,15 @@ function renderGroupDetails(group) {
         albumContainer.innerHTML = '';
         if (header) albumContainer.appendChild(header);
 
-        if (group.albums && group.albums.length > 0) {
-            group.albums.forEach(album => {
+        const albums = group?.albums ?? [];
+
+        if (albums.length > 0) {
+            albums.forEach(album => {
                 const row = document.createElement('div');
                 row.className = 'list-row album-view-grid';
                 row.innerHTML = `
-                    <div class="col-name">${album.name || 'Okänt album'}</div>  
-                    <div class="col-year">${album.releaseYear || 'N/A'}</div>
+                    <div class="col-name">${album?.name ?? 'Okänt album'}</div>  
+                    <div class="col-year">${album?.releaseYear ?? 'Ej angivet'}</div>
                 `;
                 albumContainer.appendChild(row);
             });

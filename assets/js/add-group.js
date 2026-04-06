@@ -17,9 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const floorYear   = 1900;                     // Albums older than 1900 are invalid 
 
             // Reading and parsing input values from the DOM
-            const name = document.getElementById('name').value.trim();
-            const yearInput = document.getElementById('establishedYear').value.trim();
-            const genreInput = document.getElementById('genre').value;
+            const name = document.getElementById('name')?.value?.trim() ?? '';
+            const yearInput = document.getElementById('establishedYear')?.value?.trim() ?? '';
+            const genreInput = document.getElementById('genre')?.value ?? '';
 
             // *** Validation Logic ***
 
@@ -59,8 +59,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const result = await service.createGroup(groupDto);
 
-            if (result && result.musicGroupId) {
-                alert(`Gruppen "${result.name}" har skapats!`);
+            if (result?.musicGroupId) {
+                // Using ?? to ensure that "undefined" isn't shown in the alert if the name is missing for some reason.
+                alert(`Gruppen "${result?.name ?? 'musikgruppen'}" har skapats!`);
                 window.location.href = `edit-group.html?id=${result.musicGroupId}`; // Redirect to the edit page after successful creation for step 2 (adding members and albums)
             } else {
                 alert('Det gick inte att skapa gruppen.\n\nTips: Formulärfält får endast innehålla engelska bokstäver (a-z), siffror, mellanslag och /.');
