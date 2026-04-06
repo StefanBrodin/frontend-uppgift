@@ -133,7 +133,7 @@ function renderMembers(artists) {
             </div>
             <div class="col-actions">
                 <button class="btn btn-edit" data-id="${a.artistId}">Ändra</button>
-                <button class="btn btn-delete" onclick="alert('Radera kommer snart!')">Radera</button>
+                <button class="btn btn-delete" data-id="${a.artistId}">Radera</button>
             </div>
         </div>
     `).join('');
@@ -142,6 +142,24 @@ function renderMembers(artists) {
     container.querySelectorAll('.btn-edit').forEach(btn => {
         btn.addEventListener('click', () => showEditMemberForm(btn.dataset.id));
     });
+
+    // Attach events to the delete buttons for group members
+    container.querySelectorAll('.btn-delete').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const artistId = btn.dataset.id;
+            const artistName = btn.closest('.list-row').querySelector('.col-name').innerText;
+            
+            if (confirm(`Vill du verkligen radera ${artistName}?`)) {
+                const success = await service.deleteArtist(artistId);
+                if (success) {
+                    await loadGroupData(); // Update the list after deletion
+                } else {
+                    alert("Kunde inte radera artisten.");
+                }
+            }
+        });
+    });
+
 }
 
 // Function to show inline edit form for a group member
@@ -198,8 +216,8 @@ function renderAlbums(albums) {
             <div class="col-name">${a.name}</div>
             <div class="col-year">${a.releaseYear}</div>
             <div class="col-actions">
-                <button class="btn btn-edit" data-id="${a.albumId}" data-type="album">Ändra</button>
-                <button class="btn btn-delete" onclick="alert('Radera kommer snart!')">Radera</button>
+                <button class="btn btn-edit" data-id="${a.albumId}">Ändra</button>
+                <button class="btn btn-delete" data-id="${a.albumId}">Radera</button>
             </div>
         </div>
     `).join('');
@@ -207,6 +225,23 @@ function renderAlbums(albums) {
     // Attach events to the newly rendered edit buttons
     container.querySelectorAll('.btn-edit').forEach(btn => {
         btn.addEventListener('click', () => showEditAlbumForm(btn.dataset.id));
+    });
+
+    // Attach events to the newly rendered delete buttons for albums
+    container.querySelectorAll('.btn-delete').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const albumId = btn.dataset.id;
+            const albumName = btn.closest('.list-row').querySelector('.col-name').innerText;
+
+            if (confirm(`Vill du verkligen radera albumet "${albumName}"?`)) {
+                const success = await service.deleteAlbum(albumId);
+                if (success) {
+                    await loadGroupData(); // Update the list after deletion
+                } else {
+                    alert("Kunde inte radera albumet.");
+                }
+            }
+        });
     });
 }
 

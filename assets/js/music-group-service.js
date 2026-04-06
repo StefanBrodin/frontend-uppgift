@@ -270,5 +270,39 @@ export class MusicGroupService {
             return null;
         }
     }
+
+
+    // Deletes an artist by its ID using a DELETE request. Returns true if successful, false if it fails.
+    async deleteArtist(id) {
+        try {
+            const response = await fetch(`${this.baseUrl}/api/Artists/DeleteItem/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'accept': 'text/plain'
+                }
+            });
+            return response.ok;
+        } catch (error) {
+            console.error("Service Error (deleteArtist):", error);
+            return false;
+        }
+    }
+
+
+    // Deletes an album by its ID using a DELETE request. Returns true if successful, false if it fails.
+    async deleteAlbum(id) {
+        try {
+            const response = await fetch(`${this.baseUrl}/api/Albums/DeleteItem/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'accept': 'text/plain'
+                }
+            });
+            return response.ok;
+        } catch (error) {
+            console.error("Service Error (deleteAlbum):", error);
+            return false;
+        }
+    }
 }
 
