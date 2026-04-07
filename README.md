@@ -9,9 +9,12 @@
 ---
 
 ## Project Overview
-Evergreen Music is a web application developed as part of the Frontend Development course at **Teknikhögskolan Gävle**. What started as a static HTML/CSS assignment has evolved into a dynamic **Single Page Application (SPA)** interface that interacts with a live REST API.
+Evergreen Music is a web application developed as part of the Frontend Development course at **Teknikhögskolan Gävle**. What started as a static HTML/CSS assignment has now evolved into a dynamic **Single Page Application (SPA)** interface that interacts with a live REST API.
 
-The project focuses on clean, modular code, modern CSS layouts, and robust asynchronous JavaScript logic.
+The project strives for clean and modular code, modern CSS layouts, and robust asynchronous JavaScript logic. And all comments should be in English! 😉
+
+* *- Why "Evergreen"?* - Because it must have a name, and it has a green-ish color theme, that's why! 😉
+* *- Why can't Group Images be uploaded?* - Because the assignment/instructions was divided into two steps; the first step was to create a static HTML/CSS website that could function as a base for future JavaScript functionality. The instructions for the first step was to actually include a Group Picture. But in Step 2 it turned out that the API didn't support image uploading/handling. But I kept the same static picture of Depeche Mode anyway in order to not break the design, and let the form remain shadowed until a future update makes it possible to include this feature! 🙂
 
 ## Technical Highlights
 
