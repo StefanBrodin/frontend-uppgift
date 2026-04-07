@@ -1,7 +1,7 @@
 # Evergreen Music
 ### *A School Project in Frontend/JavaScript*
 
-[![Evergreen Music Preview](assets/images/screenshot.png)](assets/images/screenshot_thumb.png)
+[![Evergreen Music Preview](assets/images/screenshot_thumb.png)](assets/images/screenshot.png)
 
 **Author:** Stefan Brodin  
 **Repository:** [https://github.com/StefanBrodin/Evergreen-Music](https://github.com/StefanBrodin/Evergreen-Music)
@@ -32,7 +32,7 @@ By implementing "Empty Row" logic in the list views, the application maintains a
 ### 4. Robust Error Handling
 To ensure a reliable application, all API interactions are wrapped in try/catch blocks. The system provides clear feedback to the user if an operation fails, preventing silent errors and improving the overall reliability of the interface.
 
-## Technical Highlights
+## In summary
 
 * **Logic:** Modern ES6+ JavaScript Modules.
 * **Layout:** Responsive design using CSS Grid and Flexbox.
