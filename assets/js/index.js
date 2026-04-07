@@ -16,7 +16,21 @@ async function renderList(pageNr) {
 
     // Fetch data from the service using search term filtering. 
     // The service will handle the API call and return the paginated data.
-    const pageData = await service.readGroups(pageNr, 10, currentSearchTerm);
+    let pageData = null;
+
+    try {
+        pageData = await service.readGroups(pageNr, 10, currentSearchTerm);
+    } catch (error) {
+        // Error handling for the list fetch operation, showing an alert to the user and logging the error for debugging purposes.
+        console.error('Fetch Error (renderList):', error);
+        alert(`Kunde inte ladda listan: ${error.message}`);
+        
+        // Clear the listContainer even in case of an error
+        const header = listContainer.querySelector('.list-header');
+        listContainer.innerHTML = ''; 
+        if (header) listContainer.appendChild(header);
+        return; // Exit function since there is no data to render
+    }
 
     // Show feedback about the search results if a search term is active
     if (currentSearchTerm && feedbackContainer) {
@@ -29,7 +43,7 @@ async function renderList(pageNr) {
     // Keep the header but clear the rest of the list container
     const header = listContainer.querySelector('.list-header');
     listContainer.innerHTML = ''; 
-    listContainer.appendChild(header);
+    if (header) listContainer.appendChild(header);
 
     // Render the rows for the current page. The service already returns the items 
     // in the correct format so they can be used directly.
@@ -72,13 +86,22 @@ async function renderList(pageNr) {
             const confirmed = confirm(`Är du säker på att du vill radera "${group?.name ?? 'denna grupp'}"?`);
             
             if (confirmed) {
-                const success = await service.deleteGroup(group?.musicGroupId);
-                
-                if (success) {
-                    // Re-render the current page if the deletion was successful to reflect the changes. 
-                    await renderList(pageData?.pageNr ?? 0);
-                } else {
-                    alert("Något gick fel vid raderingen. Försök igen.");
+                try {
+                    const success = await service.deleteGroup(group?.musicGroupId);
+                    
+                    if (success) {
+                        // Re-render the current page if the deletion was successful to reflect the changes. 
+                        await renderList(pageData?.pageNr ?? 0);
+                    } else {
+                        // The way the service is written right now (either throws an error or returns true) makes it a *zero* chance of this 
+                        // happening since an error would be thrown if the response isn't OK, but this is here as a fallback in case the 
+                        // service implementation changes in the future.
+                        alert("Kunde inte bekräfta raderingen. Försök igen.");
+                    }
+                } catch (error) {
+                    // Catch and show the specific error from the service call, and log it for debugging purposes.
+                    console.error('Delete Error:', error);
+                    alert(`Ett fel uppstod vid radering: ${error.message}`);
                 }
             }
         });
