@@ -15,9 +15,9 @@ async function loadGroupData() {
         const group = await service.readGroup(groupId);
         if (!group) return;
 
-        currentGroup = group; // Store the full group data to the global currentGroup variable for later use in updates
+        currentGroup = group;  // Store the full group data to the global currentGroup variable for later use in updates
 
-        // Fill basic info
+        // Fill the main form fields with the current group data for editing. 
         const nameField = document.getElementById('group-name'); 
         const genreField = document.getElementById('genre');
         const yearField = document.getElementById('formed-year'); 
@@ -26,7 +26,14 @@ async function loadGroupData() {
         if (nameField) nameField.value = group?.name ?? '';
         if (genreField) genreField.value = group?.genre ?? '';
         if (yearField) yearField.value = group?.establishedYear ?? '';
-        if (titleElement) titleElement.innerText = `Redigera ${group?.name ?? 'musikgrupp'}`;
+
+        // If the user cames to this page from the "Add Group" flow (identified by the "mode=new" query parameter), then    
+        // the title should reflect that they are now in step 2 of the process (editing the newly created group to add 
+        // members and albums). This is set at the bottom of this page. Otherwise, if they are in the normal edit flow, 
+        // the standard title with the group name is set here.
+        if (titleElement && urlParams.get('mode') !== 'new') {
+            titleElement.innerText = `Redigera ${group?.name ?? 'musikgrupp'}`;
+        }
 
         // Render the current "group member" and "album" lists
         renderMembers(group?.artists ?? []);
@@ -455,6 +462,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         alert("Inget ID angivet! Återgår till startsidan.");
         window.location.href = 'index.html';
         return;
+    }
+
+    // Check if we are in "new group" mode to customize the UI
+    const mode = urlParams.get('mode');
+    if (mode === 'new') {
+        const titleElement = document.getElementById('edit-title');
+        const mainForm = document.getElementById('edit-group-form-container');
+        
+        if (titleElement) {
+            titleElement.innerText = "Steg 2: Lägg till gruppmedlemmar och album";
+        }
+        
+        if (mainForm) {
+            mainForm.classList.add('hidden-mode-new');
+        }
     }
 
     // Retrieve the group data from the API and render it on the page

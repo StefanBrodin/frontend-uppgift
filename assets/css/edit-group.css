@@ -220,6 +220,11 @@ label {
     font-size: 1.3rem;
 }
 
+/* Hide the main info form when coming from the "Add Group" flow */
+.hidden-mode-new {
+    display: none !important;
+}
+
 /* Responsive adjustments */
 
 @media (max-width: 48.0rem) {

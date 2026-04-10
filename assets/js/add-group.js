@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (result?.musicGroupId) {
                     // Using ?? to ensure that "undefined" isn't shown in the alert if the name is missing for some reason.
                     alert(`Gruppen "${result?.name ?? 'musikgruppen'}" har skapats!`);
-                    window.location.href = `edit-group.html?id=${result.musicGroupId}`; // Redirect to the edit page after successful creation for step 2 (adding members and albums)
+                    window.location.href = `edit-group.html?id=${result.musicGroupId}&mode=new`; // Redirect to the edit page after successful creation for step 2 (adding members and albums)
                 } else {
                     // The server response was OK (nothing to catch) but the returned object did not look like expected. 
                     alert('Servern svarade, men kunde inte bekräfta att gruppen skapades.');
