@@ -1,11 +1,25 @@
 <!DOCTYPE html> 
-<html lang="sv-SE">
+<html lang="sv-SE" prefix="og: https://ogp.me/ns# music: https://ogp.me/ns/music#">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#003800">
     
-    <title>Laddar grupp...</title>
+    <title>Visa musikgrupp | Evergreen Music</title>
+
+    <meta name="description" content="Lär dig mer om dina favoritband på Evergreen Music. Se album, medlemmar och diskografi.">
+    
+    <!-- The canonical URL (which will be overwritten by the JavaScript dynamically) is especially important for dynamically generated pages like this one -->
+    <!-- that can be accessed with different query parameters but that could still potentially show *duplicate content* (like same group info stored twice -->
+    <!-- under different ID's/URL's), which could damage SEO. -->
+    <link rel="canonical" href="https://DOMAIN/view-group.html?id=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx">
+
+    <!-- music.song_group is one of the descriptions standardized in the Open Graph protocol used by social media platforms. https://ogp.me/ -->
+    <meta property="og:type" content="music.song_group">
+    <meta property="og:title" content="Visa musikgrupp | Evergreen Music">
+    <meta property="og:description" content="Utforska musikgrupper, artister och album i vår kompletta musikdatabas.">
+    <meta property="og:image" content="https://DOMAIN/assets/images/group-images/depeche-mode.jpg">
+    <meta property="og:url" content="https://DOMAIN/view-group.html">
 
     <link rel="stylesheet" href="assets/css/global.css">
     <link rel="stylesheet" href="assets/css/index.css">

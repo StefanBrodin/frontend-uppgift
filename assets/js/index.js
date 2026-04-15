@@ -5,9 +5,31 @@ const service = new MusicGroupService();
 let currentSearchTerm = ''; // Global variable to keep track of the current search term (if any) for pagination
 
 async function renderList(pageNr) {
-    document.title = `Musikgruppslista - Evergreen Music`;
+    
+    // Set the page title and header based on the current search term or pagination page number to provide better context to the user.
+    let pageTitle = 'Utforska musikgrupper | Evergreen Music';
+    let headerText = 'Musikgruppslista';
+
+    if (currentSearchTerm) {
+        pageTitle = `Sök: '${currentSearchTerm}' | Evergreen Music`;
+        headerText = `Sökresultat för '${currentSearchTerm}'`;
+    } else if (pageNr > 0) {
+        const displayPage = pageNr + 1;
+        pageTitle = `Utforska musikgrupper (sida ${displayPage} | Evergreen Music)`;
+        headerText = `Musikgruppslista (sida ${displayPage})`;
+    }
+
+    document.title = pageTitle;
+
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.setAttribute('href', `${window.location.origin}`);
+    
+    const ogImg = document.querySelector('meta[property="og:image"]');
+    if (ogImg) ogImg.setAttribute('content', `${window.location.origin}/assets/images/og-main.png`);
+
+
     const h1 = document.getElementById('page-h1');
-    if (h1) h1.innerText = `Musikgruppslista`;
+    if (h1) h1.innerText = headerText; 
 
     const listContainer = document.getElementById('group-list-container');
     const feedbackContainer = document.getElementById('search-feedback');

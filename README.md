@@ -13,13 +13,15 @@ Evergreen Music is a web application developed as part of the Frontend Developme
 
 The project strives for clean and modular code, modern CSS layouts, and robust asynchronous JavaScript logic. And all comments should be in English! 😉
 
-* *- Why "Evergreen"?* - Because it must have a name, and it has a green-ish color theme, that's why! 😉
-* *- Why can't Group Images be uploaded?* - Because the assignment/instructions was divided into two steps; the first step was to create a static HTML/CSS website that could function as a base for future JavaScript functionality. The instructions for the first step was to actually include a Group Picture. But in Step 2 it turned out that the API didn't support image uploading/handling. But I kept the same static picture of Depeche Mode anyway in order to not break the design, and let the form remain shadowed until a future update makes it possible to include this feature! 🙂
+* *Why "Evergreen"?* - Because it must have a name, and it has a green-ish color theme, that's why! 😉
 
+* *Why can't Group Images be uploaded?* - Because the assignment/instructions was divided into two steps; the first step was to create a static HTML/CSS website that could function as a base for future JavaScript functionality. The instructions for the first step was to actually include a Group Picture. But in Step 2 it turned out that the API didn't support image uploading/handling. But I kept the same static picture of Depeche Mode anyway in order to not break the design, and let the form remain shadowed until a future update makes it possible to include this feature! 🙂
+
+ 
 ## Technical Highlights
 
 ### 1. API Integration & CRUD
-The application features full **CRUD** functionality. It uses a Service to communicate with an external REST API to manage music groups, artists, and albums using:
+The application features full **CRUD** functionality by communicating with an external REST API to manage music groups, artists, and albums in real-time using:
 * **Asynchronous JavaScript:** Extensive use of `fetch` and `async/await`.
 * **Service-based Architecture:** Data logic is encapsulated in a dedicated `MusicGroupService` class.
 
@@ -32,7 +34,10 @@ By implementing "Empty Row" logic in the list views, the application maintains a
 ### 4. Robust Error Handling
 To ensure a reliable application, all API interactions are wrapped in try/catch blocks. The system provides clear feedback to the user if an operation fails, preventing silent errors and improving the overall reliability of the interface.
 
-## In summary
+### 5. Static and dynamic meta data
+Pages have static/dynamic meta data in their <head> tags for an SEO friendly atmosphere, including formal Open Graph protocol tags (https://ogp.me/) for Social Media sharing (Facebook, LinkedIn, Twitter/X, and most messaging apps like iMessage). This includes a carefully crafted canonical URL handling for pages with dynamically rendered content to prevent **duplicate content** which could destroy SEO.
+
+### 6. Built using the latest Web technologies and design philosophies
 
 * **Logic:** Modern ES6+ JavaScript Modules.
 * **Layout:** Responsive design using CSS Grid and Flexbox.
@@ -41,4 +46,4 @@ To ensure a reliable application, all API interactions are wrapped in try/catch 
 * **Architecture:** Adheres to Atomic Design Principles for a structured and scalable UI.
 
 ---
-*Note: Since the project uses JavaScript Modules, it is recommended to run it through a local server (like Live Server in VS Code)*
+⚠️ *Note: Since the project uses JavaScript Modules, it is recommended to run it through a local server (like Live Server in VS Code)* ⚠️

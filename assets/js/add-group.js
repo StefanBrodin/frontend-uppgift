@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Collecting and validating user data from the form fields to be used for creating a new music group entity using the MusicGroupService.  
 
             // Validation constants for the "established year" to ensure it's within a reasonable range.
-            const ceilingYear = new Date().getFullYear(); // Future albums can not exist
-            const floorYear   = 1900;                     // Albums older than 1900 are invalid 
+            const ceilingYear = new Date().getFullYear(); // Future groups can not have been established yet
+            const floorYear   = 1900;                     // Groups established before 1900 are invalid 
 
             // Reading and parsing input values from the DOM
             const name = document.getElementById('name')?.value?.trim() ?? '';

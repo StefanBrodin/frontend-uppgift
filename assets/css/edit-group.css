@@ -110,6 +110,13 @@ label {
     background-color: rgba(0, 0, 0, 0.03);
 }
 
+.file-input-hint {
+    display: block;
+    margin-top: 0.5rem; 
+    font-size: 1.4rem;
+    color: #666;
+}
+
 /* Button styling */
 
 .btn-save {

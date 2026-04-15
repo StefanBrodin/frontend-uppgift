@@ -39,7 +39,42 @@ try {
 
 // 3. Render the page using the retrieved data
 function renderGroupDetails(group) {
-    document.title = `${group?.name ?? 'Musikgrupp'} - Evergreen Music`;
+    document.title = `${group?.name ?? 'Musikgrupp'} | Evergreen Music`;
+
+    // Dynamically update meta tags for better SEO and social media sharing based on the group details. This ensures 
+    // that when users share the page on social media platforms, they get relevant information in the preview.
+    
+    // Update the meta description to include the group name 
+    const description = `Lär dig mer om ${group?.name ?? 'gruppen'}. Se deras album, medlemmar och diskografi på Evergreen Music.`;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', description);
+
+    // Update the canonical URL to reflect the current *unique* page with the group ID to avoid potential duplicate content 
+    // issues which can hurt SEO. Note to self: if the user should add some extra, non-relevant query parameters to the URL,
+    // for example - &utm_source=facebook - then that part will also become part of the canonical URL. Not good. Best would be 
+    // to render the canonical URL (as well as other dynamic meta tags) server-side instead of in JavaScript inside the browser
+    // and output the result as static HTML, which would also be beneficial to web spiders and social media platforms that may
+    // not wait for (or not even run at all) the javascript. But since this is a frontend project without a backend, I'll just
+    // leave it at this for now. But the issue is noted! ;-)  
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.setAttribute('href', window.location.href);
+
+    // Update the Open Graph meta tags for better social media sharing
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', `${group?.name ?? 'Musikgrupp'} | Evergreen Music`);
+
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute('content', description);
+
+    // Note: While the API doesn't provide individual images for groups, a "dynamic" image can still be set. But for now 
+    // it points to the same "Depeche Mode" default image for all groups. ;-)
+    const ogImg = document.querySelector('meta[property="og:image"]');
+    if (ogImg) ogImg.setAttribute('content', `${window.location.origin}/assets/images/group-images/depeche-mode.jpg`);
+
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.setAttribute('content', window.location.href);
+   
+
 
     // Group details
     const nameElem = document.getElementById('group-name');

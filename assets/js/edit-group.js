@@ -47,7 +47,7 @@ async function loadGroupData() {
 
 function setupEventListeners() {
 
-// Update group details 
+    // Update group details 
     document.getElementById('edit-group-form')?.addEventListener('submit', async (e) => {
         e.preventDefault();
 

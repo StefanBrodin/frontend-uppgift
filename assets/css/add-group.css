@@ -55,6 +55,14 @@ h1 {
     background-color: rgba(0, 0, 0, 0.03); /* Subtle tint to show readonly status */
 }
 
+.file-input-hint {
+    display: block;
+    margin-top: 0.5rem; 
+    font-size: 1.4rem;
+    color: #666;
+}
+
+
 label {
     font-weight: 600;
     font-size: 1.4rem;

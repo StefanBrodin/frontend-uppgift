@@ -1,15 +1,45 @@
 <!DOCTYPE html> 
-<html lang="sv-SE">
+
+<!-- Swedish language (as used in Sweden (not Finland or other places)) declaration for proper localization, browser translation functions, and SEO benefits. -->
+<!-- Open Graph protocol declaration for proper semantics. https://ogp.me/ -->
+<html lang="sv-SE" prefix="og: https://ogp.me/ns#">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#003800">
     
-    <title>Evergreen Music</title> 
+    <!-- *** SEO & Social Media Metadata *** -->
+
+    <!-- Title here is the default fallback. A dynamic title will be rendered inside index.js to reflect the current page state (page number/serch term). -->
+    <!-- The page-unique description is more important than the brand/site-name, so it comes in that order. It also helps users with many tabs open -->
+    <!-- to quickly identify the content of the page from the title. -->
+    <title>Utforska musikgrupper | Evergreen Music</title>
+
+    <!-- A concise description that includes relevant keywords for better search engine ranking. -->
+    <meta name="description" content="Upptäck din nästa favoritgrupp på Evergreen Music. Bläddra genom vår databas av musikgrupper inom rock, blues, jazz och metal.">
+
+    <!-- Canonical URL to prevent duplicate content issues which upsets search engines. Keeping search engines happy improves SEO ranking. :-) -->
+    <!-- "DOMAIN" here should obviously be replaced with the actual domain name where the site is hosted. -->
+    <link rel="canonical" href="https://DOMAIN/">
+
+    <!-- Open Graph metadata for better social media sharing, including an actual image. https://ogp.me/ -->
+    <meta property="og:title" content="Din musikdatabas online | Evergreen Music">
+    <meta property="og:description" content="Hitta detaljerad info om klassiska och moderna musikgrupper.">
     
+    <!-- All public pages with a unique URL should have this "website" declaration so that Search Engines and Social Media platforms knows what they are looking at. -->
+    <meta property="og:type" content="website"> 
+    <meta property="og:url" content="https://DOMAIN/">
+    
+    <!-- The image that will be used for social media sharing of *the main page*. The image exists :-) -->
+    <!-- For individual group pages, the image would typically be dynamically updated to show an image of the group, -->
+    <!-- but in this case it will always be Depeche Mode since image handling isn't implemented in the API/Database. ;-) -->
+    <meta property="og:image" content="https://DOMAIN/assets/images/og-main.png">
+    
+    <!-- *** Stylesheets *** -->
     <link rel="stylesheet" href="/assets/css/global.css">
     <link rel="stylesheet" href="/assets/css/index.css">
 
+    <!-- *** Favicons *** -->
     <link rel="icon" type="image/svg+xml" href="/assets/favicons/favicon.svg">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
@@ -17,6 +47,12 @@
     <link rel="shortcut icon" href="/assets/favicons/favicon.ico"> 
     <link rel="manifest" href="/assets/favicons/site.webmanifest">
 
+    <!-- *** JavaScript *** -->
+    <!-- Using type="module" to enable ES6, module scope, always/automatic strict mode, auto-deferred loading (runs *after* DOMContentLoaded). -->
+    <!-- I'm putting the script tag here instead of at the end of the <body> to collect all external resources and references inside inside the <head> tag. -->
+    <!-- To me, this is a lot more clean, and it makes the JavaScript load early on and in parallel with other resources. -->
+    <!-- The JavaScript will be deferred until after the DOM is fully parsed, and *it won't block* the initial page load. -->
+    <!-- All my JS files also have checks inside them as a backup that actively waits for the DOM to fully load before executing. -->
     <script type="module" src="/assets/js/index.js"></script>
 </head>
 <body>

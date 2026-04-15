@@ -5,7 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#003800">
     
-    <title>Redigera grupp - Evergreen Music</title>
+    <title>Redigera musikgrupp | Evergreen Music</title>
+    <meta name="description" content="Hantera information som gruppmedlemmar och släppta musikalbum för musikgruppen.">
+
+    <!-- This page is not meant to be shared or indexed by search engines since it's a form for editing content, -->
+    <!-- not for displaying public content. This is also why there is no Open Graph tags - it would be unnecessary. -->
+    <meta name="robots" content="noindex, nofollow">
     
     <link rel="stylesheet" href="assets/css/global.css">
     <link rel="stylesheet" href="assets/css/index.css">
@@ -70,6 +75,7 @@
                         <input type="text" id="group-image" placeholder="Ingen bild vald" class="form-input" readonly>
                         <button type="button" class="btn btn-edit">Välj bild</button>
                     </div>
+                    <em class="file-input-hint">(Bildhantering är inte implementerat i API:et, så det går inte att ladda upp någon bild.)</em>
                 </div>
                 <div class="form-footer-right">
                     <button type="submit" class="btn-save">Uppdatera grunddata</button>
