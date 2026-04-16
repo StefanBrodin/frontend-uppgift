@@ -107,6 +107,7 @@
     background-color: var(--bg-main);
     transition: background-color 0.2s ease, transform 0.1s ease;
     border-bottom: 0.1rem solid var(--border-color);
+    position: relative; /* Added to contain the stretched link */
 }
 
 /* Remove border from the last row to not double up with the container border */
@@ -175,6 +176,17 @@
     display: inline; /* Ensures the link only takes up as much space as its text */
 }
 
+/* Stretches the link to cover the entire list-row area */
+.col-name a::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+}
+
 .col-name a:hover {
     text-decoration: underline;
 }
@@ -183,6 +195,8 @@
 .col-actions {
     display: flex;
     gap: 1.0rem;
+    position: relative; /* Keeps buttons above the stretched link-layer */
+    z-index: 2;
 }
 
 .btn {
